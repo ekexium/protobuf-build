@@ -38,7 +38,11 @@ impl WrapperGen {
             "wrapper_{}",
             path.file_name().unwrap().to_str().unwrap()
         ));
-        let mut out = BufWriter::new(File::create(&path).expect("Could not create file"));
+        let mut out = BufWriter::new(File::create(&path).expect(&format!(
+            "Could not create file:{:?}, len = {}",
+            path,
+            path.as_os_str().len()
+        )));
         self.generate(&mut out).expect("Error generating code");
     }
 
